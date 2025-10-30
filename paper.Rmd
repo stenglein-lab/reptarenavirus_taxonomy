@@ -1,0 +1,87 @@
+Outline for reptarenavirus taxonomy paper/proposal
+
+A proposal to taxonomically classify reptarenaviruses into two species
+
+Authors: Mark Stenglein and the ICTV arenavirus taxonomy study group
+
+Affiliations:
+
+Abstract
+
+The reptarenaviruses are a large group of bisegmented snake-infecting viruses. Reptarenavirus infection is common in captive snake populations and has been linked to boid inclusion body disease.  Although infection is associated with disease in some instances, snakes can be infected for long periods without manifesting clinical signs. It is common for snakes to be co-infected by reptarenaviruses.  These co-infections are often not simple co-infection by two viruses but rather infection by complex mixtures of multiple S and L genome segments. These mixed viral populations can be transmitted from snake to snake and have been detected in both captive and wild animals. Coinfection can produce Reassortment and recombination and both have been commonly detected among reptarenaviruses.  This genotypic complexity presents a problem for taxonomic classification, and the current classification scheme does not coherently map onto the observed biological complexity and has left most reptarenavirus sequences unclassified (and unclassifiable?). Here, we propose to taxonomically reclassify the reptarenaviruses into two species, corresponding to two groups of reassorting viruses.  This is analogous to the classical species definition based on reproductive isolation and follows the taxonomic example of other groups of frequently reassorting viruses, including influena viruses and rotaviruses.  This simpler classification scheme better reflects the biological complexity exhibited by this fascinating group of viruses.
+
+
+Introduction
+
+Reptarenaviruses are bisegmented ambisense single stranded RNA viruses in the Arenaviridae family.  This family includes viruses that infect mammals (genus Mammarenavirus), snakes (Reptarenavirus), and fish (Antennavirus).  Viruses in this group share a bisegmented ambisense genome organization with L and S segments with one or more genes per segment.
+
+Reptarenaviruses were originally identified in association with cases of inclusion body disease, a progressive neurodegenerative disease of snakes.  Subsequent experimental infections confirmed a causal role in IBD pathogenesis, but not all infected snakes get sick and disease manifestation appears to be a function of multiple variables, including host species.
+
+Reptarenavirus co-infection is common and has been detected in both captive and wild-living snakes.  For instance, one study that recovered viral genomes from X infected snakes found that Y of them were co-infected.  A study of X wild snakes found Y.  Co-infection may result from serial infection by different strains or by transmission of a mixed population of multiple virus genotypes or both (have both been documented)?.  Superinfection exclusion.   Snakes remain infected for long periods without clearning the virus: experimentally infected boa constrictors remained infected for two years with high viral RNA levels in blood and tissues.  This prolonged coinfection  provides an opportunity for the coinfecting segments to compete, reassort, and recombine.  Reassortment is consequently common and recombination has been detected, which is normally an unusual feature of negative strand RNA virus biology.   Coinfection and reassortment have been detected in mammarenaviruses, but seems to be the exception rather than the rule, as it is in reptarenaviruses.
+
+Currently, reptarenaviruses are classified according to several criteria that are similar to the classification criteria for other arenaviruses (Box/Table 1).  The main criterion is that viruses share less than 80% pairwise nucleotide sequence identity between S segments and less than 76% pairwise identity in the L segment.  This criterion would work if infections corresponded to single S and single L segments.  But infections commonly consist of one or several S and L segments. The current criteria do not describe how to classify sequences in these kinds of multiuple infections.
+This has resulted in a classification scheme that does not map well onto the viral genotypes present in individual ainfected snakes. For instance, individual snakes can be infected by 1 S segment and Y L segments.  Currently only X of Y arenavirus sequences in the NCBI nucleotide database are classified.  Anlaytic workflows that only consider classified reptarenavirus sequences therefore fail to capture the full complexity of the group. 
+
+from: https://ictv.global/report/chapter/arenaviridae/arenaviridae/reptarenavirus
+The parameters used to assign viruses to new species in the genus are:
+
+- the virus shares less than 80% nucleotide sequence identity in the S RNA segment and less than 76% identity in the L RNA segment with other viruses;
+- association of the virus with a distinct main host or a group of sympatric hosts;
+- dispersion of the virus in a distinct defined geographical area; and/oror
+- the virus shares less than 88% NP amino-acid sequence identity with other viruses (Radoshitzky et al., 2015).
+
+Pervasive reassortment has broken the link between individual S segments and L segments.  So classification schemes based only on one segment will not adequately reflect the diverse set of associated genotypes. 
+
+
+There is a clear and simple solution to this problem: one that has been adopted for other groups of viruses that frequently reassort. 
+
+Other groups of viruses that frequently reassort offer a solution to this taxonomic conundrum.  These include influenza A viruses, rotaviruses, and bluetongue viruses.  Each of these groups is lumped into a single species: Influenzavirus A, X, Y.  
+
+Intrasegment recombination further complicates reptarenavirus taxonomy.
+
+Enumerate and describe problems with current classification scheme, using figures 
+
+Results
+
+Trees: Reptarenavirus diversity and classification
+
+NP gene trees
+L gene tree
+Z gene tree
+GP gene tree
+
+Tips colored/labeled by current classification. 
+
+Examples of situations where kkkkkk
+
+
+Proposed new classification scheme, including species name, type species, and new classification criteria.
+
+
+
+
+Methods
+
+This paper is implemented as a fully reproducible workflow based on make, nextflow, and singularity. Code and data for this paper are available at: https://github.com/stenglein-lab/reptarenavirus_taxonomy.
+
+Reptarenavirus sequences 
+
+We downloaded all coding-complete reptarenavirus sequences in the NCBI nucleotide database on Oct 29, 2025.  We parsed the taxonomic classification of each sequence from the NCBI records.  We extracted coding sequences for each gene and created multiple sequence alignments for each gene using the MAFFT aligner vX.Y.Z.  We manually inspected alignments to confirm the absence of any obvious alignment artifacts.  We used the GARD tool implemented on the datamonkey webserver to confirm the absence of recombination within invividual gene alignments (recombination breakpoints have been detected between but not within genes).
+
+Mapping sequences to individual infections
+
+Trees and tanglegrams
+
+We created trees from individual gene multiple sequences using iqtree version 2.X using default parameters and used ggTree to visualize trees.    We used phytools to create tanglegrams.
+
+
+
+Acknowledgements
+
+Research on reassortment in the Stenglein lab is supported by NSF X and NIH Y.   Feedback from / authorship by Jens Kuhn?
+
+Discussion
+
+This classification scheme is based on the successful precedent of influnza viruses, rotaviruses, and bluetongue virues.  Subspecies classification frameworks have been developed for all of these groups.  For instance, HA/NA subtyping for influenzaviruses, and XYZ for rotativruses. A similar subspecies categorization scheme could be developed for the reptarenaviruses.  
+
+
