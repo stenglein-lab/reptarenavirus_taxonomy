@@ -41,7 +41,28 @@ Intrasegment recombination further complicates reptarenavirus taxonomy.
 
 Enumerate and describe problems with current classification scheme, using figures 
 
-Results
+## Results
+
+## The state of reptarenavirus classification
+
+Under the current classification scheme, many reptarenavirus sequences are unclassified, and, as described below, unclassifiable.   X of Y reptarenavirus sequences in the NCBI nucleotide database are classified into Z species.  This leaves X sequences (X%) unclassified.  The currently classified sequences only capture a portion [can quantify using branch lenghts?] of reptarenavirus genetic diversity, as measured using .
+
+
+#### Reassortment breaks the link between individual L and S segments
+
+Reassortment breaks the genetic linkage between particular S and L segments. This means that viruses that share identical or nearly identical S segments but have different L segments would be classified in different species (and vice-versa), and new species would be required for each new segment combination.  This would require the establishment of Z new species beyond the current Z, and it is likely that much reptarenavirus diversity remains unsampled.
+
+
+#### It is not clear how to taxonomically handle sequences present in multiple coinfections
+
+
+#### It is not clear how recombinant sequences should be classified
+
+The current classification scheme has potentially conflicting 
+
+
+One issue with the current classificaiton
+
 
 Trees: Reptarenavirus diversity and classification
 
@@ -55,33 +76,42 @@ Tips colored/labeled by current classification.
 Examples of situations where kkkkkk
 
 
+#### There is a simple solution to these problems
+
+Trees showing classification of reptarenavirus
+
+
+#### Proposed new scheme
+
 Proposed new classification scheme, including species name, type species, and new classification criteria.
 
 
 
-
-Methods
+## Methods
 
 This paper is implemented as a fully reproducible workflow based on make, nextflow, and singularity. Code and data for this paper are available at: https://github.com/stenglein-lab/reptarenavirus_taxonomy.
 
-Reptarenavirus sequences 
+#### Reptarenavirus sequences 
 
 We downloaded all coding-complete reptarenavirus sequences in the NCBI nucleotide database on Oct 29, 2025.  We parsed the taxonomic classification of each sequence from the NCBI records.  We extracted coding sequences for each gene and created multiple sequence alignments for each gene using the MAFFT aligner vX.Y.Z.  We manually inspected alignments to confirm the absence of any obvious alignment artifacts.  We used the GARD tool implemented on the datamonkey webserver to confirm the absence of recombination within invividual gene alignments (recombination breakpoints have been detected between but not within genes).
 
 Mapping sequences to individual infections
 
-Trees and tanglegrams
+#### Trees and tanglegrams
 
 We created trees from individual gene multiple sequences using iqtree version 2.X using default parameters and used ggTree to visualize trees.    We used phytools to create tanglegrams.
 
 
 
-Acknowledgements
+## Acknowledgements
 
 Research on reassortment in the Stenglein lab is supported by NSF X and NIH Y.   Feedback from / authorship by Jens Kuhn?
 
-Discussion
+## Discussion
 
 This classification scheme is based on the successful precedent of influnza viruses, rotaviruses, and bluetongue virues.  Subspecies classification frameworks have been developed for all of these groups.  For instance, HA/NA subtyping for influenzaviruses, and XYZ for rotativruses. A similar subspecies categorization scheme could be developed for the reptarenaviruses.  
 
+Should the classification of other groups of frequently reassorting viruses be similarly reconsidered?  If so, which groups?  The mammarenaviruses and antennaviruses seem to exhibit much less reassortment.  One potential candidate is the orthobunyaviruses.  
 
+
+## References
