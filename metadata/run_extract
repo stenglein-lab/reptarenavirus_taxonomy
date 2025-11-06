@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# extract sequence metadata from genbank files
+# for instance: sequence names, taxids, etc
+# 
+# MDS 11/5/2025
+
+# extract metadata from L segment sequences
+nextflow run extract_metadata.nf \
+ -resume \
+ -profile singularity \
+ --genbank '../input/all_reptarenavirus_L_seqs_2025_10_31.gb' \
+ --segment "L" \
+ -output-dir "L_metadata"
+
+# extract metadata from S segment sequences
+nextflow run extract_metadata.nf \
+ -resume \
+ -profile singularity \
+ --genbank '../input/all_reptarenavirus_S_seqs_2025_10_31.gb' \
+ --segment "S" \
+ -output-dir "S_metadata"
+
+# combined L & S output using base linux commands
+cat L_metadata/L.accession_map.txt > ../metadata/genbank_metadata.txt
+
+# add on S segment map data, skipping redundant header line
+tail -n +2 S_metadata/S.accession_map.txt >> ../metadata/genbank_metadata.txt
