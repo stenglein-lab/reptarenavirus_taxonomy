@@ -2,9 +2,15 @@
 csl: arch_virol.csl #Get themes at https://github.com/citation-style-language/styles
 fontsize: 12pt
 output:
-  html_document: default
-  word_document: 
-  pdf_document:
+  bookdown::html_document2: 
+    number_sections: false 
+    global_numbering: true 
+  bookdown::pdf_document2: 
+    number_sections: false 
+    global_numbering: true 
+  bookdown::word_document2: 
+    number_sections: false 
+    global_numbering: true 
     includes:
       in_header: header.tex
     keep_tex: yes
@@ -96,10 +102,33 @@ Enumerate and describe problems with current classification scheme, using figure
 
 ## Results
 
+
+
 ### The state of reptarenavirus classification
 
 Under the current classification scheme, many reptarenavirus sequences are unclassified, and, as described below, unclassifiable.   X of Y reptarenavirus sequences in the NCBI nucleotide database are classified into Z species.  This leaves X sequences (X%) unclassified.  The currently classified sequences only capture a portion [can quantify using branch lenghts?] of reptarenavirus genetic diversity, as measured using .
 
+### Issues resulting from the current classification scheme
+
+### A majority of reptarenavirus sequences remain unclassified
+
+Under the current scheme, most reptarenavirus sequences remain unclassified.  X of Y L segment sequences and Z of W S segment sequences are currently unclassified (Fig.  \@ref(fig:classified-unclassified-fig)).  Some unclassified sequences are not closely related to classified sequences, meaning that important reptarenavirus geneitc diversity is not being captured.  For instance, sequence X, is unclassifed and only shares Y% 
+
+
+
+
+```{r classified-unclassified-fig, fig.cap = "Most reptarenavirus sequences are unclassified under the current classification scheme.  Midpoint rooted maximum-likelihood trees from nucleotide alignments of reptarenavirus L and NP coding sequences.  Red colored tips indicate unclassified sequence. "}
+fig <- readRDS("figures/classified_unclassified_figure.RDS")
+fig
+```
+
+### A large number of species would be required to handle the large number of S-L combinations
+
+### Sequences from the same species are not monophyletic
+
+A sequence-based classification scheme should produce monphyletic taxa. In other words, sequences from the same species should form a clade in evolutionary trees with a common ancestor that is not shared by other species.  Current reptarenavirus classification schemes result in paraphyletic species in one or both segments. 
+
+### A large number of species would be required to handle the large number of S-L combinations
 
 ### Reassortment breaks the link between individual L and S segments
 
@@ -158,6 +187,8 @@ We created trees from individual gene multiple sequences using iqtree version 2.
 
 ## Discussion
 
+Reptarenavirus taxonomy is rooted in assumptions about how viruses ought to behave that do not apply.  For instance, that S and L segments are neatly found together in single infections.
+
 This classification scheme is based on the successful precedent of influnza viruses, rotaviruses, and bluetongue virues.  Subspecies classification frameworks have been developed for all of these groups.  For instance, HA/NA subtyping for influenzaviruses, and XYZ for rotativruses. A similar subspecies categorization scheme could be developed for the reptarenaviruses.  
 
 Should the classification of other groups of frequently reassorting viruses be similarly simplified?  If so, which groups?  The mammarenaviruses and antennaviruses seem to exhibit much less reassortment.  One potential candidate is the orthobunyaviruses.  Drosophila-infecting partitiviruses?  Hartmaniviruses?  Perhaps groups of viruses that frequently recombine, like viruses within the sarbecovirus genus could also.
@@ -172,6 +203,8 @@ Like sexual reproduction, viral reassortment and recombination represent forms o
 Similar also to the genetic species concept as elaborated by and others: "a group of genetically compatible interbreeding natural populations that is genetically isolated from other such groups" [https://pmc.ncbi.nlm.nih.gov/articles/PMC2771874/]
 
 https://en.wikipedia.org/wiki/Species
+
+
 
 
 ## Acknowledgements
