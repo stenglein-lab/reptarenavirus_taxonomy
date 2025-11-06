@@ -106,6 +106,8 @@ Enumerate and describe problems with current classification scheme, using figure
 
 ### The state of reptarenavirus classification
 
+The 
+
 Under the current classification scheme, many reptarenavirus sequences are unclassified, and, as described below, unclassifiable.   X of Y reptarenavirus sequences in the NCBI nucleotide database are classified into Z species.  This leaves X sequences (X%) unclassified.  The currently classified sequences only capture a portion [can quantify using branch lenghts?] of reptarenavirus genetic diversity, as measured using .
 
 ### Issues resulting from the current classification scheme
