@@ -1,6 +1,9 @@
-
 /*
- A nextflow workflow to align a set of sequences (mafft) and make a tree from the alignment (iqtree3) 
+ A simple nextflow workflow to align a set of sequences (mafft) 
+ and make a tree from the alignment (iqtree3) 
+
+ The input to this pipeline is one or more sets of sequences 
+ in fasta format, specified by the --fasta parameter.
 
  Mark Stenglein 11/3/2025
  */
@@ -9,7 +12,7 @@ workflow {
 
   main:
     // make alignments
-    fasta_ch = Channel.fromPath(params.fasta).view{it}
+    fasta_ch = Channel.fromPath(params.fasta)
     alignment_workflow(fasta_ch)
 
     // make trees
@@ -23,6 +26,7 @@ workflow {
     treelog       = tree_workflow.out.treelog   
 }
 
+// define where main output files will go
 output {
     alignment {
         path 'alignments'
