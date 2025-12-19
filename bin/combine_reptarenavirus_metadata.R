@@ -16,6 +16,19 @@ head(eutils_derived_map)
 # merge tables
 reptarenavirus_accession_metadata <- left_join(genbank_derived_map, eutils_derived_map)
 
+# make some labeling variables
+reptarenavirus_accession_metadata <- reptarenavirus_accession_metadata %>% 
+  mutate(acc_org = paste0(accession, "_", organism),
+         acc_spp = paste0(accession, "_", species_name))
+
+# make a boolean to indicate whether accession is classified
+reptarenavirus_accession_metadata <- reptarenavirus_accession_metadata %>% 
+  mutate(classified = case_when(
+    species_name %in% c("unclassified Reptarenavirus") ~ F,
+    .default = T) )
+
 # output
 write.table(reptarenavirus_accession_metadata, "../metadata/reptarenavirus_accession_metadata.txt",
             sep="\t", row.names = F, quote=F)
+
+saveRDS(reptarenavirus_accession_metadata, "../metadata/reptarenavirus_accession_metadata.RDS")
