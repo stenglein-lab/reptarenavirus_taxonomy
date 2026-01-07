@@ -4,7 +4,14 @@
 # that creates alignment(s) and then trees 
 # from one or more sets of sequences 
 
+# nt alignments
 nextflow run align_and_tree.nf \
  -resume \
  -profile singularity \
  --fasta '../input/*CDS.fasta'
+
+# protein alignments
+nextflow run align_and_tree.nf \
+ -resume \
+ -profile singularity \
+ --fasta '../input/*_prot.fasta'

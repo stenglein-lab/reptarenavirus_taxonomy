@@ -16,7 +16,7 @@ input_handle  = open(sys.argv[1], "r")
 segment       = sys.argv[2]
 
 # print header line for tsv output
-print ("accession", "organism", "taxid", "segment", sep="\t")
+print ("accession", "organism", "taxid", "segment", "description", "isolate", "strain", sep="\t")
 
 # for each sequence in file
 for rec in SeqIO.parse(input_handle, "genbank") :
@@ -25,14 +25,21 @@ for rec in SeqIO.parse(input_handle, "genbank") :
       for feature in rec.features :
 
          accession = rec.name
+         description = rec.description
          organism = "NA"
          taxid = "NA"
+         isolate = "NA"
+         strain = "NA"
 
          if feature.type == "source": 
            organism = feature.qualifiers.get("organism")[0]
            taxid    = feature.qualifiers.get("db_xref")[0].replace("taxon:", "")
+           if 'isolate' in feature.qualifiers.keys() and feature.qualifiers['isolate']:
+              isolate  = feature.qualifiers.get("isolate")[0]
+           if 'strain' in feature.qualifiers.keys() and feature.qualifiers['strain']:
+              strain   = feature.qualifiers.get("strain")[0]
            # output accession -> organism map
-           print (accession, organism, taxid, segment, sep="\t")
+           print (accession, organism, taxid, segment, description, isolate, strain, sep="\t")
 
 #output_handle.close()
 input_handle.close()
