@@ -6,7 +6,6 @@ library(tidyverse)
 # 
 # Mark Stenglein, 11/6/2025
 
-
 # current ICTV reptarenavirus species and their NCBI taxids 
 # could read this in from a file, but this is simple
 reptarenavirus_species <- 

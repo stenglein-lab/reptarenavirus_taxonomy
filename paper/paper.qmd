@@ -3,6 +3,7 @@ format:
   html: default
   docx: 
     reference-doc: custom-reference-doc.docx
+
 bibliography: references.bib
 csl: asm.csl #Get themes at https://github.com/citation-style-language/styles
 crossref:
@@ -13,6 +14,12 @@ crossref:
       reference-prefix: Supplemental Figure
       space-before-numbering: true
       latex-list-of-description: Supplementary Figure
+    - kind: float
+      key: supptab
+      latex-env: supptab
+      reference-prefix: Supplemental Table
+      space-before-numbering: true
+      latex-list-of-description: Supplementary Table
     - kind: float
       key: box
       latex-env: box
@@ -48,11 +55,13 @@ inline_hook <- function(x, digits=2){
 knitr::knit_hooks$set(inline=inline_hook)
 ```
 
-# A proposal for a simplified reptarenavirus taxonomy that accomodates this group's remarkable genotypic complexity
+# A proposal for a simplified reptarenavirus taxonomy based on reassortment compatibility
 
 <br>
 
-Mark D. Stenglein^1^*, to be added: authors who wish to sign on
+Mark D. Stenglein^1^*, Buchmeier MJ, Clegg CS, Gonzalez  JP, Günther S, Hepojoki J, Kuhn JH, Okogbenin S, Radoshitzky SR, Sironi M, de la Torre JC  
+
+(**I am hoping all *Arenaviridae* SG members would be willing to sign on to this proposal**)
 
 <br>
 
@@ -69,19 +78,22 @@ Mark D. Stenglein^1^*, to be added: authors who wish to sign on
 
 The reptarenaviruses are a large group of two-segmented snake-infecting arenaviruses. Some reptarenavirus-infected snakes develop boid inclusion body disease, a progressive neurologic condition. Other snakes remain persistently infected without manifesting clinical signs. Reptarenavirus coinfection is common, and often consists of mixtures of multiple S and L genome segments. Coinfection provides an opportunity for genome segments to reassort and recombine and both phenomena have been commonly detected. This widespread coinfection, reassortment, and recombination complicate taxonomic classification, and consequently 85% of reptarenavirus sequences are unclassified under current criteria. Here, we propose to substantially simplify reptarenavirus classification into two species, corresponding to two groups of reassorting viruses. This is analogous to the classical biological species concept based on reproductive isolation and follows the taxonomic example of other groups of frequently reassorting viruses, including influenza viruses and rotaviruses. This simpler classification scheme will result in classification of all available reptarenavirus sequences and will better accommodate the biological and genotypic complexity exhibited by this fascinating group of viruses.
 
+- TODO: methods
+- TODO: update github repo
+
 {{< pagebreak >}}
 
 ## Introduction
 
-Reptarenaviruses are segmented single-stranded RNA viruses in the *Arenaviridae* family. This family includes viruses that infect mammals (genus *Mammarenavirus*), snakes (genera *Reptarenavirus* and *Hartmanivirus*), fish (*Antennavirus*), and unknown hosts (genus *Innmovirus*) [@Radoshitzky2023; @Ly2023]. Arenaviruses have genomes of ~10.5 kb total length across 2-3 segments with negative sense or ambisense coding organization. Reptarenaviruses have 2 segments with 2 genes on each segment in opposite coding orientations. The reptarenavirus large (L) segment encodes a multifunctional polymerase (L protein) and a short Z protein. The small (S) segment encodes a glycoprotein precursor (GPC) and a nucleoprotein (NP) [@Radoshitzky2023].
+Reptarenaviruses are segmented single-stranded RNA viruses in the *Arenaviridae* family. This family includes viruses that infect mammals (genus *Mammarenavirus*), snakes (genera *Reptarenavirus* and *Hartmanivirus*), fish (*Antennavirus*), and unknown hosts (*Innmovirus*) [@Radoshitzky2023; @Ly2023]. Arenaviruses have genomes of ~10.5 kb total length across 2-3 segments with negative sense or ambisense coding organization. Reptarenaviruses have 2 segments with 2 genes on each segment in opposite coding orientations. The reptarenavirus large (L) segment encodes a multifunctional polymerase (L protein) and a short Z protein. The small (S) segment encodes a glycoprotein precursor (GPC) and a nucleoprotein (NP) [@Radoshitzky2023].
 
 Reptarenaviruses were originally identified in association with cases of inclusion body disease (IBD), a progressive neurological disease of snakes [@Schumacher1994; @Chang2010; @Stenglein2012; @Hetzel2013; @Bodewes2013]. Experimental infections confirmed a causal role in IBD pathogenesis, but not all infected snakes got sick and disease manifestation appears to be a function of multiple variables, including host species [@Stenglein2017; @Hetzel2021; @Chang2016; @Hyndman2019; @Simard2020]. Snakes can remain persistently and subclinically infected for months or years with high viral RNA levels in multiple tissues [@Stenglein2017; @Hetzel2021].
 
 Reptarenavirus coinfection is common and has been detected in both captive and wild snakes [@Stenglein2015; @Hepojoki2015; @Keller2017; @Windbichler2019 ; @Argenta2020 ; @AlfaroAlarcn2022]. In one survey of captive reptarenavirus-infected snakes from across the USA, 27 of 48 snakes were coinfected (56%), and sampling did not enrich for coinfection [@Stenglein2015]. Coinfections consisted of complex mixtures of multiple S and L segment genotypes, with L segment genotypes typically outnumbering S segment genotypes [@Stenglein2015; @Hepojoki2015]. Prolonged subclinical infection and an apparent lack of superinfection exclusion likely contribute to the high degree of multiple infection [@Lintala2024]. 
 
-This prolonged coinfection provides an opportunity for genome segments to compete, reassort, and recombine [@Holmes2009; @Pontremoli2018]. Indeed, reptarenavirus reassortment is common, as is recombination, which is normally an unusual feature of negative strand RNA virus biology [@Stenglein2015; @Hepojoki2015; @Holmes2009]. Coinfection, recombination, and reassortment have been detected in mammarenaviruses but appear to be substantially rarer than in reptarenavirus infection [@Weaver2000; @Charrel2001; @Fernandes2018; @Cuypers2022] . 
+Prolonged coinfection provides an opportunity for genome segments to compete, reassort, and recombine [@Holmes2009; @Pontremoli2018]. Indeed, reptarenavirus reassortment is common, as is recombination, which is normally an unusual feature of negative strand RNA virus biology [@Stenglein2015; @Hepojoki2015; @Holmes2009]. Coinfection, recombination, and reassortment have been detected in mammarenaviruses but appear to be substantially rarer than in reptarenavirus infection [@Weaver2000; @Charrel2001; @Fernandes2018; @Cuypers2022] . 
 
-Current reptarenavirus species demarcation criteria make assumptions that map poorly onto this observed genotypic complexity. This paper documents the resulting issues and propose a simple alternative that will result in classification of all available reptarenavirus sequences and will accommodate the remarkable biological complexity of the group.
+Current reptarenavirus species demarcation criteria were established before the extent of coinfection and reassortment was evident, and was based on assumptions that map poorly onto reptarenavirus biology. This paper documents the resulting issues and propose a simple alternative that will result in classification of all available reptarenavirus sequences and will accommodate the remarkable biological complexity of the group.
 
 {{< pagebreak >}}
 
@@ -90,9 +102,9 @@ Current reptarenavirus species demarcation criteria make assumptions that map po
 ### The state of reptarenavirus classification
 
 <!-- R objects with information about reptarenavirus classification --> 
-<!-- this RDS output from script in this repo: bin/parse_ICTV_MLS.R -->
+<!-- this RDS output from script in this repo: bin/reptarenavirus_taxonomy.R -->
 ```{r include=F}
-rept_spp <- readRDS("../RDS/reptarenavirus_species.RDS")
+rept_spp <- readRDS("./RDS/reptarenavirus_species.RDS")
 ```
 
 The International Committee on Taxonomy of Viruses (ICTV) oversees viral taxonomy [@Black2025]. ICTV study groups are tasked with evaluating taxonomic changes for particular groups of viruses, including the formation of new taxa [@Simmonds2025]. 
@@ -112,68 +124,67 @@ ___________________
 ___________________
 
 <!-- R objects with information about classification of NCBI reptarenavirus ssequences --> 
-<!-- from: bin/reptarenavirus_distances.R -->
-<!-- and : bin/plot_reptarenavirus_taxonomy.R -->
+<!-- this RDS output from script in this repo: bin/reptarenavirus_taxonomy.R -->
 ```{r include = FALSE}
-cc <- readRDS("../RDS/classified_values.RDS")
-nn <- readRDS("../RDS/closest_MW091469_relative.RDS")
+cc <- readRDS("./RDS/classified_values.RDS")
+nn <- readRDS("./RDS/closest_MW091469_relative.RDS")
 ```
 
-Only `r inline_hook(cc$fraction_classified * 100, 0)`% of reptarenavirus sequences in the NCBI nucleotide database are classified as belonging to a reptarenavirus species under current taxonomy. This includes `r inline_hook(cc$classified_S, 0)` of `r inline_hook(cc$S_sequences, 0)` S sequences (`r inline_hook(cc$fraction_classified_S * 100, 0)`%), and `r inline_hook(cc$classified_L, 0)` of `r inline_hook(cc$L_sequences, 0)` L sequences (`r inline_hook(cc$fraction_classified_L * 100, 0)`%; **[Fig @fig-classified-unclassified]**; **[Supp. Fig. @suppfig-classified-unclassified-L-sup]**; **[Supp. Fig. @suppfig-classified-unclassified-S-sup]**). Many unclassified sequences are not closely related to classified sequences, meaning that substantial reptarenavirus genetic diversity is not being captured by current taxonomy (**[Fig @fig-classified-unclassified]**). For instance, unclassified L segment sequence `r inline_hook(nn$this_accession)` only shares `r inline_hook(nn$pairwise_identity*100, 0)`% pairwise nt identity with the nearest classified sequence, `r inline_hook(nn$accession)` (**[Supp. Fig. @suppfig-classified-unclassified-L-sup]**). Analyses dependent on classification metadata therefore do not capture the full genetic diversity and complexity of the group [@Fiamenghi2025; @Camargo2022].  For example, the current ICTV webpage describing reptarenaviruses includes a phylogeny that only shows classified viruses, thereby substantially underrepresenting the diversity of the group [@ICTV_Reptarenavirus_page].
+Only `r inline_hook(cc$fraction_classified * 100, 0)`% of reptarenavirus sequences in the National Center for Biotechnology Information (NCBI) nucleotide database are classified as belonging to a reptarenavirus species under current taxonomy. This includes `r inline_hook(cc$classified_S, 0)` of `r inline_hook(cc$S_sequences, 0)` S sequences (`r inline_hook(cc$fraction_classified_S * 100, 0)`%), and `r inline_hook(cc$classified_L, 0)` of `r inline_hook(cc$L_sequences, 0)` L sequences (`r inline_hook(cc$fraction_classified_L * 100, 0)`%; **[Fig @fig-classified-unclassified]**; **[Supp. Fig. @suppfig-classified-unclassified-L-sup]**; **[Supp. Fig. @suppfig-classified-unclassified-S-sup]**). Many unclassified sequences are not closely related to classified sequences, meaning that substantial reptarenavirus genetic diversity is not being captured by current taxonomy (**[Fig @fig-classified-unclassified]**). For instance, unclassified L segment sequence `r inline_hook(nn$this_accession)` shares only `r inline_hook(nn$pairwise_identity*100, 0)`% pairwise nt identity with the nearest classified sequence, `r inline_hook(nn$accession)` (**[Supp. Fig. @suppfig-classified-unclassified-L-sup]**). Analyses dependent on classification metadata therefore do not capture the full genetic diversity and complexity of the group. This presents an issue for computational virology research that is increasingly reliant on large datasets and associated metadata [@Simmonds2017; @Camargo2022; @Fiamenghi2025]. 
 
 ::: {#fig-classified-unclassified}
 ![](./figures/classified_unclassified_figure.png)
 
-Most reptarenavirus sequences are unclassified under the current classification scheme. Midpoint rooted maximum-likelihood trees from nucleotide alignments of reptarenavirus L protein (L) and nucleoprotein (NP) coding sequences (CDS). Red colored circles denote currently classified sequences. [Supp. Fig. @suppfig-classified-unclassified-L-sup] and [Supp. Fig. @suppfig-classified-unclassified-S-sup] include these trees with tip labels and support values.
+Most reptarenavirus sequences are unclassified under the current classification scheme. Midpoint rooted maximum-likelihood trees from nucleotide alignments of reptarenavirus L protein (L) and nucleoprotein (NP) coding sequences (CDS). Red colored circles denote currently classified sequences. [Supp. Fig. @suppfig-classified-unclassified-L-sup] and [Supp. Fig. @suppfig-classified-unclassified-S-sup] show these trees with tip labels and support values.
 :::
 
-### Issues resulting from the current classification scheme
+### Multiple infection, reassortment, and recombination produce taxonomic uncertainty
 
 Most reptarenavirus sequences remain unclassified because it has not been clear how to classify them in a sensible manner under current criteria. A central issue is the widespread occurrence of multiple infection. Individual snakes are often infected by reptarenavirus populations consisting of many genetically diverse S and L segments [@Stenglein2015; @Hepojoki2015; @Keller2017; @Windbichler2019 ; @Argenta2020 ; @AlfaroAlarcn2022]. These populations can be transmitted horizontally and vertically between snakes and can be isolated and propagated in tissue culture as ensembles [@Stenglein2015; @Keller2017]. Although most sampled snakes have been captive, coinfection has also been observed in wild-caught snakes [@AlfaroAlarcn2022].
 
-The diverse sets of sequences recovered from several multiply infected snakes illustrate the taxonomic challenges posed by multiple infection (**[Fig @fig-multiply-infected]**). For instance, snake #8 from [@Hepojoki2015] was infected by a reptarenavirus population consisting of a single S segment and 4 phylogenetically diverse L segments. Snake #26 from [@Stenglein2015] yielded 2 S sequences and 4 L sequences. Snake #33 from [@Stenglein2015] was infected by a  population consisting of a single S segment and 10 L segments.
+The diverse sets of sequences recovered from several multiply infected snakes illustrate the taxonomic challenges posed by multiple infection (**[Fig @fig-multiply-infected]**). For instance, snake #8 from [@Hepojoki2015] was infected by a reptarenavirus population consisting of a single S segment and 4 phylogenetically diverse L segments. Snake #26 from [@Stenglein2015] yielded 2 S sequences and 4 L sequences. Snake #33 from [@Stenglein2015] was infected by a population consisting of a single S segment and 10 L segments (**[Fig @fig-multiply-infected]**).
 
 ::: {#fig-multiply-infected}
 ![](./figures/multiple_infection_figure.png)
 
-Reptarenavirus L and S segments present in several multiply infected snakes. This co-phylogeny shows trees made from L and NP coding sequences as in [Fig @fig-classified-unclassified], with lines connecting L and S segments that were recovered from the same snake. Different colors indicate sequences recovered from 3 different snakes: snakes #26 and #33 from [@Stenglein2015], and snake #8 from [@Hepojoki2015].
+Reptarenavirus multiple infection prevents straightforward classification. This co-phylogeny shows trees made from L and NP coding sequences as in [Fig @fig-classified-unclassified], with lines connecting L and S segments that were recovered from 3 representative multiply infected snakes. Different colors indicate sequences recovered from different snakes: snakes #26 and #33 from [@Stenglein2015], and snake #8 from [@Hepojoki2015]. [Supp. Fig. @suppfig-classified-unclassified-L-sup] and [Supp. Fig. @suppfig-classified-unclassified-S-sup] show these trees with tip labels and support values.
 :::
 
-The current classification criteria are based on the assumption that S and L segments co-occur as pairs in a predictable fashion. This assumption does not map well onto cases of multiple infection and leads to uncertainty. Should the 10 S-L combinations from snake #33 be assigned to 10 different reptarenavirus species? This would mean that this snake was co-infected by reptarenaviruses of 10 different species that share a single S segment. It's not clear that this definition of species leads to a clearer understanding of the underlying infection biology. In the case of snake #26, it's not clear which of the 4 L segments "belong to" which of the 2 S segments. Should the 8 combinations of S and L genotypes in this snake be considered 8 species?  The mixing and matching of different L and S segments in multiply infected snakes represents a form of reassortment.
+The current classification criteria are based on the assumption that S and L segments co-occur as pairs in a predictable fashion. This assumption does not map well onto cases of multiple infection and leads to uncertainty. Should the 10 S-L combinations from snake #33 be assigned to 10 different reptarenavirus species? This would mean that this snake was co-infected by reptarenaviruses of 10 different species that shared a single S segment (**[Fig @fig-multiply-infected]**). Similarly, for snake #26, it's not clear which of the 4 L segments "belong to" which of the 2 S segments. Should the 8 combinations of S and L genotypes in this snake be considered 8 different species?
 
 <!-- R objects with information about example reassortant L-S pairs -->
-<!-- and : bin/plot_reptarenavirus_taxonomy.R -->
+<!-- this RDS output from script in this repo: bin/reptarenavirus_taxonomy.R -->
 ```{r include = FALSE}
-min_example_S_dist <- readRDS("../RDS/min_example_S_dist.RDS")
-min_example_L_dist <- readRDS("../RDS/min_example_L_dist.RDS")
-max_example_L_dist <- readRDS("../RDS/max_example_L_dist.RDS")
+min_example_S_dist <- readRDS("./RDS/min_example_S_dist.RDS")
+min_example_L_dist <- readRDS("./RDS/min_example_L_dist.RDS")
+max_example_L_dist <- readRDS("./RDS/max_example_L_dist.RDS")
 ```
 
-Reptarenavirus reassortment is common even in the absence of multiple infection, further complicating classification, as seen in a L-NP cophylogeny from singly infected snakes (**[Fig @fig-singly-infected]**). For example, S segments KP071610, KP071539, and KP071606 are highly similar, sharing ≥ `r inline_hook(min_example_S_dist*100, 1)`% pairwise nt identity in their NP CDS. In contrast, the L segments from these 3 snakes, KP071611, KP071540, and KP071607, are highly divergent, sharing between `r inline_hook(min_example_L_dist*100, 1)`% and `r inline_hook(max_example_L_dist*100, 1)`% pairwise nt identity.
+The different L-S combinations in multiply infected snakes represent a form of reassortment (**[Fig @fig-multiply-infected]**). Even in the absence of multiple infection reptarenavirus reassortment is common, further complicating classification, as seen in a L-NP cophylogeny from singly infected snakes (**[Fig @fig-singly-infected]**). For example, S segments KP071610, KP071539, and KP071606 are highly similar, sharing ≥ `r inline_hook(min_example_S_dist*100, 1)`% pairwise nt identity in their NP CDS. In contrast, the L segments from these 3 snakes, KP071611, KP071540, and KP071607, are divergent, sharing between `r inline_hook(min_example_L_dist*100, 1)`% and `r inline_hook(max_example_L_dist*100, 1)`% pairwise nt identity.
 
 
 ::: {#fig-singly-infected}
 ![](./figures/single_infection_figure.png)
 
-Reptarenavirus reassortment is evident in singly infected snakes, snakes from which a single S and L segment was recovered. This co-phylogeny shows trees made from L and NP coding sequences as in [Fig @fig-classified-unclassified] and [Fig @fig-multiply-infected], with lines connecting L and S segments that were recovered from the same snake. Different colors indicate sequences recovered from [@Stenglein2015] (blue), or [@Hepojoki2015] (red). Connecting lines are only shown for sequences from these 2 studies for which suitable metadata existed. Examples of reassortant reptarenavirus genotypes, with nearly identical NP CDS but divergent L CDS are indicated with bolded connecting lines.
+Reptarenavirus reassortment is evident in singly infected snakes: snakes from which a single S and L segment was recovered. This co-phylogeny shows trees made from L and NP coding sequences as in [Fig @fig-classified-unclassified] and [Fig @fig-multiply-infected], with lines connecting L and S segments that were recovered from the same snake. Different colors indicate sequences recovered from [@Stenglein2015] (blue), or [@Hepojoki2015] (red). Connecting lines are only shown for sequences from these 2 studies for which suitable metadata existed. Examples of reassortant reptarenavirus genotypes, with nearly identical NP CDS but divergent L CDS are indicated with bolded connecting lines.
 :::
 
-The high prevalence of reassortment in singly and multiply infected snakes creates a combinatorial classification problem. If you define genotypes as sharing ≤ 80% pairwise nt identity ([@box-demarcation-criteria]), then there are 13 NP genotypes and 31 L genotypes (considering just the coding sequences). These could have the potential to reassort to produce 403 distinct L-S combinations, each of which would require the establishment of a new reptarenavirus species according to current criteria.  Different species would share identical or nearly identical S or L segments and there would not be clear connections between species assigment and infection phenotypes. Intrasegmental recombination [@Stenglein2015] makes this problem even worse by increasing the number of possible S and L segment genotype combinations.
+Reassortment imposes a combinatorial classification burden. If you were to define reptarenavirus genotypes as sharing ≤ 80% pairwise nt identity ([@box-demarcation-criteria]), then there would be 13 NP genotypes and 31 L genotypes. These have the potential to reassort to produce 403 L-S combinations, each of which would require the establishment of a new reptarenavirus species under current criteria. Different species would share identical or nearly identical S or L segments. Intrasegmental recombination [@Stenglein2015] makes this problem even worse by increasing the number of possible S and L segment combinations.
 
 ### There is a simple solution 
 
-Fortunately, there is a simple solution to these problems, one that has been adopted for other groups of frequently reassorting viruses. That is to lump groups of reassorting viruses into single species.  In this new scheme, all known reptarenavirus sequences would be reclassified into one of two existing species (**[Fig @fig-new-species]**). Under the new proposal, nearly all known reptarenavirus sequences would belong to the species *Reptarenavirus giessenae*, with exemplar isolate University of Giessen virus 1 (UGV1; L: KR870022; S: KR870012). And 4 existing sequences, all from annulated tree boas (*Corallus annulatus*), would be classified as *Reptarenavirus californae*, with exemplar isolate CAS virus (CASV; L: JQ717261; S: JQ717262).  The species *R. aurei*, *R. commune*, and *R. rotterdamense* would be eliminated.
+Fortunately, there is a simple solution, one that has been adopted for other groups of frequently reassorting viruses. That is to lump groups of reassorting viruses into single species. In this new scheme, all known reptarenavirus sequences would be reclassified into one of two existing species (**[Fig @fig-new-species]**). Most reptarenavirus sequences would be assigned to the species *Reptarenavirus giessenae*, with exemplar isolate University of Giessen virus 1 (UGV1; L: KR870022; S: KR870012). Eight sequences, all from annulated tree boas (*Corallus annulatus*), would be classified as *Reptarenavirus californae*, with exemplar isolate CAS virus (CASV; L: JQ717261; S: JQ717262). The species *R. aurei*, *R. commune*, and *R. rotterdamense* would be subsumed by *R. giessenae* and eliminated.  [@supptab-acc-spp-map] lists all available reptarenavirus sequence accessions and their proposed species assignments. 
 
 ::: {#fig-new-species}
 ![](./figures/new_species_figure.png)
 
-Proposed new reptarenavirus species.  All available reptarenavirus species would be reclassified into two species: *R. giessenae* (blue) and *R. californae* (orange). This co-phylogeny shows trees made from L and NP coding sequences as in [Fig @fig-classified-unclassified], with lines connecting L and S segments that were recovered from the same snakes from [@Stenglein2015] and [@Hepojoki2015].  
+Proposed new reptarenavirus species. All available reptarenavirus species would be reclassified into two species: *R. giessenae* (blue) or *R. californae* (orange). This co-phylogeny shows trees made from L and NP coding sequences as in [Fig @fig-classified-unclassified], with lines connecting L and S segments that were recovered from the same snakes from [@Stenglein2015] and [@Hepojoki2015]. Connecting lines are only shown for sequences from these 2 studies for which suitable metadata existed. 
 :::
 
-These two new proposed species correspond to monophyletic clades of viruses separated by long branches in L and NP trees (**[Fig @fig-new-species]**).  These species share two primary properties, which form the basis for the proposed new classification (**[@box-proposed-new-demarcation-criteria]**).  First, they consist of groups of reassorting viruses (**[Fig @fig-new-species]**). (Reassortment has not been observed for CASV, though only several sequences have been described). Second, L and NP protein sequences share ≥ 60% pairwise identity within species and ≤ 60% between species (**[Fig @fig-pairwise-distances]**). 
+These two new proposed species correspond to monophyletic clades of viruses separated by long branches in L and NP trees (**[Fig @fig-new-species]**). These species share two properties that form the basis for the proposed new classification (**[@box-proposed-new-demarcation-criteria]**). First, they consist of groups of reassorting viruses (**[Fig @fig-new-species]**). (Reassortment has not been observed for CASV, though only several CASV-like viruses have been characterized). Second, L and NP protein sequences share ≥ 60% pairwise amino acid identity within species and ≤ 60% between species (**[Fig @fig-pairwise-distances]**). 
 
 ___________________
-- Reptarenavirus species consist of reassortment-capable groups of viruses.
+- Reptarenavirus species consist of groups of reassorting viruses.
 - L and NP protein sequences from different reptarenavirus species share ≤ 60% pairwise amino acid identity. 
 
 **Proposed new reptarenavirus species demarcation criteria.**
@@ -185,60 +196,42 @@ ___________________
 ::: {#fig-pairwise-distances}
 ![](./figures/pairwise_distance_figure.png)
 
-Pairwise identities of L and NP protein sequences within and between proposed new reptarenavirus species.  The pairwise identity of L and NP protein sequences from within-species comparisons and between-species comparisons was determined from multiple sequence alignments and plotted as histograms.  Species designations here are as in [Fig @fig-new-species].
+Pairwise identities of (A) L and (B) NP protein sequences within and between proposed new reptarenavirus species. The pairwise identity of L and NP protein sequences from within-species comparisons and between-species comparisons was determined from multiple sequence alignments and plotted as histograms. Species designations here are as in [Fig @fig-new-species].
 :::
 
+{{< pagebreak >}}
 
-Influenza viruses are the best known example. There are 4 species of influenza viruses, This solution solves all of the issues raised above. All influenza A viruses, and all 1.46 million influenza A virus sequences in the NCBI nucleotide database, are classified as belonging to the species Alphainfluenzavirus influenzae. Influenza A viruses are classified below the species level according to hemagglutinin (HA) and neurominidase (NA) genotypes ("subtypes"). But even this does not fully capture the genetic complexity contributed by all 8 influenza virus segments. Similarly, all rotavirus A viruses
 
-Notably, single-species classification of large groups of reassorting viruses does not impede research or the development of vaccines and therapies. That is because taxonomy is largely an academic pursuit. It is useful only insofar it improves understanding of underlying biology or practical applications. 
 
-The current reptarenavirus classification scheme, on the other hand, has led to the failure to classify 85% of reptarenavirus sequences, because there is such a large mismatch between classification criteria and actual viral biology. This impedes research that is increasingly relies on large dataset and associated metadata [@Fiamenghi2025; @Simmonds2017; @Camargo2022]. Unclassified reptarenavirus sequences are missed by computational analyses that rely on classification metadata. Adopting a similar solution for reptarenaviruses would solve all of the issues described above.
+## Discussion
 
-### Proposed new scheme
+Taxonomists are famously categorized as "lumpers" or "splitters": those that wish to lump more taxa into larger groups vs. those that wish to split taxa into ever finer groups [@Endersby2009]. Here we are proposing substantial lumping, but this is driven by necessity. Current reptarenavirus taxonomy is rooted in assumptions that do not apply. When classification criteria were initially devised, the extent of multiple infection and reassortment was simply not yet known. Nevertheless, this has resulted in an inability to classify most reptarenavirus sequences. The proposed reclassification solves this issue and should be able to accommodate future expansions in known reptarenavirus diversity. 
 
-Proposed new classification scheme, including species name, type species, and new classification criteria.
+It is possible, of course, that recovery of additional reptarenavirus sequences could challenge the basis for this reclassification. For instance, additional sampling could reveal viruses with CASV-like S segments and UGV1-like L segments (**[Fig @fig-new-species]**). In that case, reptarenavirus classification could simply be revised again. 
 
-Pervasive reassortment has broken the link between individual S segments and L segments. So classification schemes based only on one segment will not adequately reflect the diverse set of associated genotypes. 
+This new scheme is based on the successful precedents of influenza viruses, rotaviruses, and bluetongue viruses, all of which reassort and contain substantial genetic diversity within single species. The 1.48 million influenza A virus sequences in the NCBI nucleotide database all belong to the species *Alphainfluenzavirus influenzae*. This large-scale lumping does not impede research or clinical practice. Influenza (A) virus research, as an example, seems unencumbered by the single-species designation. This may be because taxonomy is largely an academic pursuit. It is useful only insofar as it improves understanding of underlying biology, leads to practical application, or serves as meaningful metadata. 
 
-There is a clear and simple solution to this problem: one that has been adopted for other groups of viruses that frequently reassort. 
+Subspecies classification frameworks, such as influenza virus hemagglutinin/neuraminidase subtyping, have been developed for all of these groups and this proposed taxonomic reorganization does not preclude future reptarenavirus subspecies categorization. Moreover, viral species are not equivalent to virus names, and new species designations do not mean that existing virus names need to change [@Zerbini2025].
 
-Other groups of viruses that frequently reassort offer a solution to this taxonomic conundrum. These include influenza A viruses, rotaviruses, and bluetongue viruses. Each of these groups is lumped into a single species: Influenzavirus A, X, Y. 
+Here, we are inferring reassortment compatibility based on cooccurence of sequences in individual infections. The presence of ten L segments and one S segment present in snake #33 (**[Fig @fig-multiply-infected]**), for instance, provides evidence that all ten L segments are genetically compatibly with the single S segment. This is not the same as experimental demonstration of genetic compatibility. But as virus sequences are identified through metagenomics at an ever increasing rate, it will not be possible to develop experimental systems for all groups of viruses [@Greninger2018]. So, well-supported inference based on sequence data will be increasingly useful. 
 
-Intrasegment recombination further complicates reptarenavirus taxonomy.
-
-Enumerate and describe problems with current classification scheme, using figures 
+Reassortment is a form of gene flow, and classification based on reassortment compatibility is analogous to Mayr's biological species concept, which defines species as "groups of actually or potentially interbreeding natural populations, which are reproductively isolated from other such groups" [@Mayr1942]. The connection between the proposed reptarenavirus classification and this classic definition is appealing, as is the new alignment with other groups of frequently reassorting viruses. Viral taxonomists might consider whether other groups of viruses that exhibit frequent genetic exchange are due for similar taxonomic revision. 
 
 {{< pagebreak >}}
 
 ## Methods
 
-### Reptarenavirus sequences 
+We downloaded all coding-complete reptarenavirus sequences in the NCBI nucleotide database on Oct 29, 2025. We parsed the taxonomic classification of each sequence from the NCBI records. We extracted coding sequences for each gene and created multiple sequence alignments for each gene using coding sequences and translated protein sequences using the MAFFT aligner v7.525 [@Katoh2013]. We manually inspected alignments to confirm the absence of any obvious alignment artifacts using Geneious software v2025.1.2 (https://www.geneious.com).  We used iqtree v3.0.1 to create maximum likelihood phylogenetic trees from each multiple sequence alignment, allowing iqtree to select the best-fitting model by specifying parameter -m MFP [@Minh2020; @Kalyaanamoorthy2017].  Branch support values were determined using UltraFast bootstrapping and SH-like approximate likelihood ratio testing (SH-aLRT) [@Hoang2017]. Non-tanglegram trees were visualized using the ggtree R package [@Yu2016].  Cophylogenies (tanglegrams) were created using the phytools R package [@Revell2024].  Figures were generally output from R scripts as PDFs and in some cases further annotated using Affinity Designer.
 
-We downloaded all coding-complete reptarenavirus sequences in the NCBI nucleotide database on Oct 29, 2025. We parsed the taxonomic classification of each sequence from the NCBI records. We extracted coding sequences for each gene and created multiple sequence alignments for each gene using the MAFFT aligner vX.Y.Z. We manually inspected alignments to confirm the absence of any obvious alignment artifacts. We used the GARD tool implemented on the datamonkey webserver to confirm the absence of recombination within invividual gene alignments (recombination breakpoints have been detected between but not within genes).
+Sequence and virus metadata was obtained from several sources.  Some metadata was parsed directly from genbank format sequence files downloaded from NCBI (accession, organism name, and sequence taxonomic ID (taxid)) using Biopython functions [@Cock2009]. Coinfecting sequences were mapped to individual snakes from Table 1 in [@Hepojoki2015]. Reptarenavirus species information was parsed from the ICTV master species list (MLS 40.v2.20251013) obtained from the ICTV website. 
 
-Mapping sequences to individual infections
-
-### Trees and tanglegrams
-
-We created trees from individual gene multiple sequences using iqtree version 2.X using default parameters and used ggTree to visualize trees. We used phytools to create tanglegrams.
-
-{{< pagebreak >}}
-
-## Discussion
-
-Taxonomists are famously categorized as "lumpers" or "splitters": those that wish to lump more taxa into larger groups vs. those that wish to split taxa into ever finer groups [@Endersby2009]. The lumping scheme proposed here is driven by necessity. Current reptarenavirus taxonomy is rooted in assumptions about how viruses behave that do not apply. This has resulted in an inability to classify reassortant and recombinant sequences and those present in multiple infections. The proposed reclassification solves these issues and should accommodate future expansions in known reptarenavirus diversity.
-
-This new scheme is based on the successful precedents of influenza viruses, rotaviruses, and bluetongue viruses, all of which reassort and contain substantial genetic diversity within single species. Subspecies classification frameworks, such as influenza virus hemagglutinin/neuraminidase subtyping, have been developed for all of these groups and this proposed taxonomic reorganization does not preclude future subspecies categorization. Moreover, viral species are not equivalent to virus names, and new species designations do not mean that existing virus names need to be changed [@Zerbini2025].
-
-Reassortment and recombination are forms of gene flow, and the classification proposed here is analogous to Mayr's classical biological species concept, which defines a species as "groups of actually or potentially interbreeding natural populations, which are reproductively isolated from other such groups" [@Mayr1942]. There is an appealing connection between this classic definition and the observed patterns of reptarenavirus infection.
-
+This paper is implemented as a fully reproducible workflow based on make, nextflow v25.10.0, R, and singularity-ce version 4.2.1 [@DiTommaso2017; @Wickham2019; @RCoreTeam2025]. Code and data for this paper are available at: https://github.com/stenglein-lab/reptarenavirus_taxonomy.
 
 {{< pagebreak >}}
 
 ## Acknowledgements
 
-Research on reassortment in the Stenglein lab is supported by NSF X and NIH Y. We thank XYZ for helpful discussion.
+Research on reassortment in the Stenglein lab is supported by NSF IOS 2048214 and NIH R01 AI177711.	
 
 ## Data availability
 
@@ -267,4 +260,11 @@ Most reptarenavirus L sequences are unclassified under the current classificatio
 ![](./figures/supplemental/Supplemental_figure_X_S_classified_unclassified_tree.png)
 
 Most reptarenavirus NP sequences are unclassified under the current classification scheme. Midpoint rooted maximum-likelihood trees from nucleotide alignments of reptarenavirus nucleoprotein (NP) coding sequences. Red colored circles denote currently classified sequences.
+::: 
+
+::: {#supptab-acc-spp-map}
+
+[Link to table](./tables/Supplemental_table_accession_proposed_species_map.txt){text-align="left"}
+
+A map of reptarenavirus sequence accessions to proposed new species.
 ::: 
