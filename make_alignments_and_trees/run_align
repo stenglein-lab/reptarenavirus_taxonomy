@@ -3,6 +3,8 @@
 # this runs a simple nextflow workflow
 # that creates alignment(s) and then trees 
 # from one or more sets of sequences 
+#
+# Mark Stenglein 11/2025
 
 # nt alignments
 nextflow run align_and_tree.nf \
