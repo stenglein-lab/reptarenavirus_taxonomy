@@ -25,10 +25,12 @@
 #
 #  Dependencies (version used for paper): 
 #   - nextflow (v25.10.0)
+#   - singularity (ce version 4.2.1)
 #   - quarto (v1.8.26)
 #   - R (4.5.2)and a number of R packages, loaded in the R scripts in the bin/ subdirectory
 # 
-#  The requirement of all these dependencies makes this not as reproducible as it could be... 
+#  The requirement of all these dependencies makes this not as reproducible as it could be. 
+#  However I am putting this out there following the Schloss Suck until you don't principle.
 #
 # Mark Stenglein 11/2025
 

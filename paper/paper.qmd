@@ -78,9 +78,6 @@ Mark D. Stenglein^1^*, Buchmeier MJ, Clegg CS, Gonzalez  JP, Günther S, Hepojok
 
 The reptarenaviruses are a large group of two-segmented snake-infecting arenaviruses. Some reptarenavirus-infected snakes develop boid inclusion body disease, a progressive neurologic condition. Other snakes remain persistently infected without manifesting clinical signs. Reptarenavirus coinfection is common, and often consists of mixtures of multiple S and L genome segments. Coinfection provides an opportunity for genome segments to reassort and recombine and both phenomena have been commonly detected. This widespread coinfection, reassortment, and recombination complicate taxonomic classification, and consequently 85% of reptarenavirus sequences are unclassified under current criteria. Here, we propose to substantially simplify reptarenavirus classification into two species, corresponding to two groups of reassorting viruses. This is analogous to the classical biological species concept based on reproductive isolation and follows the taxonomic example of other groups of frequently reassorting viruses, including influenza viruses and rotaviruses. This simpler classification scheme will result in classification of all available reptarenavirus sequences and will better accommodate the biological and genotypic complexity exhibited by this fascinating group of viruses.
 
-- TODO: methods
-- TODO: update github repo
-
 {{< pagebreak >}}
 
 ## Introduction
