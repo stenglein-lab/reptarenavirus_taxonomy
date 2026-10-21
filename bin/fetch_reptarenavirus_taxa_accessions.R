@@ -1,10 +1,12 @@
-library(rentrez)
-library(tidyverse)
-
+#!/usr/bin/env Rscript 
+#
 # this script uses the NCBI E-Utils interface, via the rentrez package interface, 
 # to identify nucleotide sequences associated with the reptarenavirus taxids
 # 
 # Mark Stenglein, 11/6/2025
+
+library(rentrez)
+library(tidyverse)
 
 # current ICTV reptarenavirus species and their NCBI taxids 
 # could read this in from a file, but this is simple
@@ -49,5 +51,5 @@ taxid_accessions_map$accession <-
 taxid_accessions_map <- left_join(taxid_accessions_map, reptarenavirus_species) 
               
 # write out the map
-write.table(taxid_accessions_map, "../metadata/accession_species_taxid_map.txt",
+write.table(taxid_accessions_map, "./accession_species_taxid_map.txt",
             quote=F, sep="\t", row.names=F)

@@ -1,3 +1,14 @@
+#!/usr/bin/env Rscript 
+
+
+#
+# This script contains code used for analyses related to the paper:
+# "A proposal for a simplified reptarenavirus taxonomy based on reassorment compatibility"
+#
+# Mark Stenglein 11/6/2025
+#
+
+
 library(tidyverse)
 library(readxl)
 library(ggtree)
@@ -9,21 +20,47 @@ library(RColorBrewer)
 library(MSA2dist)
 library(patchwork)
 
+# this code block sets up input parameters, which are taken from command-line arguments
+# if running via Rscript or to default values if running in RStudio
 
-#
-# This script contains code used for analyses related to the paper:
-# "A proposal for a simplified reptarenavirus taxonomy based on reassorment compatibility"
-#
-# Mark Stenglein 11/6/2025
-#
+if (!interactive()) {
+  # if running from Rscript
+  args = commandArgs(trailingOnly=TRUE)
 
-# define output directories
-output_dir             = "../paper/"
+  Hepojoki_input    = args[1]
+  msl_input         = args[2]
+
+  metadata_input_dir = "./"
+  tree_input_dir     = "./"
+  msa_input_dir      = "./"
+  cds_input_dir      = "./"
+
+  output_dir         = "./"
+
+} else {
+  # if running via RStudio (during developement)
+  Hepojoki_input    = "../input/Hepojoki_2015_table_1.xlsx"
+  msl_input         = "../input/ICTV_Master_Species_List_2025_MSL41.v1.xlsx"
+
+  metadata_input_dir = "../workflow_output/metadata/"
+  tree_input_dir     = "../workflow_output/trees/"
+  msa_input_dir      = "../workflow_output/alignments/"
+  cds_input_dir      = "../workflow_output/collapsed_cds/"
+
+  output_dir         = "../workflow_output/"
+}
+
+# define sub-output directories
 rds_output_dir         = paste0(output_dir, "RDS/")
 figure_output_dir      = paste0(output_dir, "figures/")
 supp_figure_output_dir = paste0(figure_output_dir, "supplemental/")
 table_output_dir       = paste0(output_dir, "tables/")
 
+# make output dirs if necessary
+dir.create(rds_output_dir, showWarnings = FALSE)
+dir.create(figure_output_dir, showWarnings = FALSE)
+dir.create(supp_figure_output_dir, showWarnings = FALSE)
+dir.create(table_output_dir, showWarnings = FALSE)
 
 # Handle sequence metadata  -------------------------------------------------------------------
 
@@ -35,12 +72,12 @@ table_output_dir       = paste0(output_dir, "tables/")
 # 4. The master species list (MLS) from the ICTV website
 #
 
-genbank_derived_map <- read.delim("../metadata/genbank_metadata.txt")
-eutils_derived_map  <- read.delim("../metadata/accession_species_taxid_map.txt")
+genbank_derived_map <- read.delim(paste0(metadata_input_dir, "genbank_metadata.txt"))
+eutils_derived_map  <- read.delim(paste0(metadata_input_dir, "accession_species_taxid_map.txt"))
 
 # read in spreadsheet containing table 1 from Hepojoki et al (2015), PMID: 26041290, re: multiply infected snakes
-Hepojoki_table_1 <- read_excel("../metadata/Hepojoki_2015_table_1.xlsx")
-Hepojoki_snakes <- select(Hepojoki_table_1, accession, Hepojoki_snake_number) 
+Hepojoki_table_1 <- read_excel(Hepojoki_input)
+Hepojoki_snakes  <- select(Hepojoki_table_1, accession, Hepojoki_snake_number) 
 
 # merge tables
 reptarenavirus_accession_metadata <- left_join(genbank_derived_map, eutils_derived_map)
@@ -54,11 +91,13 @@ reptarenavirus_accession_metadata <- reptarenavirus_accession_metadata %>%
 reptarenavirus_accession_metadata <- reptarenavirus_accession_metadata %>% 
   mutate(classified = case_when(
     species_name %in% c("unclassified Reptarenavirus") ~ F,
+    is.na(species_name) ~ F,
     .default = T) )
 
 # parse out snake # (a la Stenglein et al 2015, doi:10.1371/journal.ppat.1004900) from sequence description
 reptarenavirus_accession_metadata$Stenglein_snake_number <- 
   str_match(reptarenavirus_accession_metadata$description, "/snake(\\d+)/")[,2]
+
 
 # join in multiple infection data from Hepojoki et al 2015, PMID 26041290
 reptarenavirus_accession_metadata <- left_join(reptarenavirus_accession_metadata, Hepojoki_snakes)
@@ -68,6 +107,7 @@ reptarenavirus_accession_metadata <- mutate(reptarenavirus_accession_metadata,
                                               !is.na(Stenglein_snake_number) ~ paste0("Stenglein_snake_", Stenglein_snake_number),
                                               .default = NA
                                             ))
+
 
 
 # how many sequences per snake?
@@ -86,7 +126,7 @@ metadata <- reptarenavirus_accession_metadata
 
 # read in ICTV Master Species List from 2025/10/13
 # downloaded from: https://ictv.global/msl
-msl <- read_excel("../input/VMR_MSL40.v2.20251013.xlsx", sheet = "VMR MSL40")
+msl <- read_excel(msl_input, sheet = "MSL")
 reptarenavirus_isolates <- filter(msl, Genus == "Reptarenavirus")
 reptarenavirus_species_names <- reptarenavirus_isolates %>% group_by(Species) %>% summarize() %>% pull(Species)
 
@@ -116,29 +156,32 @@ saveRDS(reptarenavirus_species, paste0(rds_output_dir, "reptarenavirus_species.R
 # Classified / unclassified stats and figures -------------------------------------------------
 
 # read in trees
-L_tree  <- read.newick("../make_alignments_and_trees/results/trees/L_CDS.mafft.fasta.treefile")
-NP_tree <- read.newick("../make_alignments_and_trees/results/trees/NP_CDS.mafft.fasta.treefile")
+L_tree  <- read.newick(paste0(tree_input_dir, "L_CDS.mafft.fasta.treefile" ))
+NP_tree <- read.newick(paste0(tree_input_dir, "NP_CDS.mafft.fasta.treefile"))
+GP_tree <- read.newick(paste0(tree_input_dir, "GP_CDS.mafft.fasta.treefile"))
+Z_tree  <- read.newick(paste0(tree_input_dir, "Z_CDS.mafft.fasta.treefile" ))
 
 # midpoint root trees
 L_midpoint  <- midpoint_root(L_tree)
 NP_midpoint <- midpoint_root(NP_tree)
+GP_midpoint <- midpoint_root(GP_tree)
+Z_midpoint  <- midpoint_root(Z_tree)
 
 # how many classified / unclassified?
 classified_counts <- metadata %>% group_by(segment, classified) %>% summarize(n=n())
 
-# how many S & L
+# how many S & L?
 total_sequence_counts <- classified_counts %>% group_by(segment) %>% summarize(total_seq = sum(n))
 L_sequences = total_sequence_counts %>% filter(segment == "L") %>% pull(total_seq)
 S_sequences = total_sequence_counts %>% filter(segment == "S") %>% pull(total_seq)
 
-# how many classified 
+# how many classified?
 classified_counts_total = classified_counts %>% group_by(classified) %>% summarize(n = sum(n))
 classified_total        = classified_counts_total %>% filter(classified) %>% pull(n)
 unclassified_total      = classified_counts_total %>% filter(!classified) %>% pull(n)
 fraction_classified     = classified_total   / (classified_total + unclassified_total)
 fraction_unclassified   = unclassified_total / (classified_total + unclassified_total)
  
-
 classified_L     = classified_counts %>% filter(segment == "L" & classified) %>% pull(n) 
 classified_S     = classified_counts %>% filter(segment == "S" & classified) %>% pull(n) 
 fraction_classified_L = classified_L / L_sequences
@@ -185,7 +228,8 @@ plot_tree <- function(tree_to_plot,
   
   # find max root to tip distance to create reasonable X limits for plotting
   root_to_tip_distances <- node.depth.edgelength(tree_to_plot)
-  tip_distances <- root_to_tip_distances[1:Ntip(tree_to_plot)]
+
+    tip_distances <- root_to_tip_distances[1:Ntip(tree_to_plot)]
   max_root_to_tip_distance <- max(tip_distances)
   
   # root edge length, based on total tree length
@@ -264,7 +308,7 @@ L_classified_tree <- plot_tree(L_midpoint, 0, 1, tree_title="L")
 L_classified_tree 
 
 # NP tree
-NP_classified_tree <- plot_tree(NP_midpoint, 0, 1, tree_title="NP")  + theme(legend.position = "right")
+NP_classified_tree <- plot_tree(NP_midpoint, 0, 1, tree_title="NP")  
 NP_classified_tree 
 
 # make a combined figure
@@ -279,18 +323,37 @@ ggsave(classified_unclassified_fig,
        file=paste0(figure_output_dir, "classified_unclassified_figure.png"), 
        units="in", width=7.5, height=5, device=grDevices::png)
 
+
 # make supplemental figure versions with tip labels
+
+# L
 supplemental_L_classified_unclassified_fig <- 
-  plot_tree(L_midpoint, 0.62, 1.2, 3, tree_title="L") + 
+  plot_tree(L_midpoint, 0.75, 1.2, 3, tree_title="L") + 
   geom_tiplab(aes(label=acc_org), size=1.5) 
 
 supplemental_L_classified_unclassified_fig 
   
-supplemental_S_classified_unclassified_fig <- 
-  plot_tree(NP_midpoint, 0.75, 1.3, 3, tree_title="NP") + 
+# NP
+supplemental_NP_classified_unclassified_fig <- 
+  plot_tree(NP_midpoint, 0.93, 1.3, 3, tree_title="NP") + 
   geom_tiplab(aes(label=acc_org), size=2)  
 
-supplemental_S_classified_unclassified_fig 
+supplemental_NP_classified_unclassified_fig 
+
+# GP tree
+supplemental_GP_classified_unclassified_fig <- 
+  plot_tree(GP_midpoint, 0.38, 1.2, 3, tree_title="GP") + 
+  geom_tiplab(aes(label=acc_org), size=1.5) 
+
+supplemental_GP_classified_unclassified_fig 
+
+# Z tree
+supplemental_Z_classified_unclassified_fig <- 
+  plot_tree(Z_midpoint, 0.78, 1.2, 3, tree_title="Z") + 
+  geom_tiplab(aes(label=acc_org), size=1.5) 
+
+supplemental_Z_classified_unclassified_fig 
+
 
 # save as png and pdf
 ggsave(
@@ -298,16 +361,32 @@ ggsave(
   supplemental_L_classified_unclassified_fig,
   units="in", width=7.5, height=10)
 ggsave( 
-  paste0(supp_figure_output_dir, "Supplemental_figure_X_S_classified_unclassified_tree.pdf"), 
-  supplemental_S_classified_unclassified_fig,
+  paste0(supp_figure_output_dir, "Supplemental_figure_X_NP_classified_unclassified_tree.pdf"), 
+  supplemental_NP_classified_unclassified_fig,
+  units="in", width=7.5, height=9)
+ggsave(
+  paste0(supp_figure_output_dir, "Supplemental_figure_X_GP_classified_unclassified_tree.pdf"), 
+  supplemental_GP_classified_unclassified_fig,
+  units="in", width=7.5, height=10)
+ggsave( 
+  paste0(supp_figure_output_dir, "Supplemental_figure_X_Z_classified_unclassified_tree.pdf"), 
+  supplemental_Z_classified_unclassified_fig,
   units="in", width=7.5, height=9)
 ggsave( 
   paste0(supp_figure_output_dir, "Supplemental_figure_X_L_classified_unclassified_tree.png"), 
   supplemental_L_classified_unclassified_fig,
   units="in", width=7.5, height=10, device=grDevices::png)
 ggsave( 
-  paste0(supp_figure_output_dir, "Supplemental_figure_X_S_classified_unclassified_tree.png"), 
-  supplemental_S_classified_unclassified_fig,
+  paste0(supp_figure_output_dir, "Supplemental_figure_X_NP_classified_unclassified_tree.png"), 
+  supplemental_NP_classified_unclassified_fig,
+  units="in", width=7.5, height=9, device=grDevices::png)
+ggsave( 
+  paste0(supp_figure_output_dir, "Supplemental_figure_X_GP_classified_unclassified_tree.png"), 
+  supplemental_GP_classified_unclassified_fig,
+  units="in", width=7.5, height=10, device=grDevices::png)
+ggsave( 
+  paste0(supp_figure_output_dir, "Supplemental_figure_X_Z_classified_unclassified_tree.png"), 
+  supplemental_Z_classified_unclassified_fig,
   units="in", width=7.5, height=9, device=grDevices::png)
   
 
@@ -377,6 +456,8 @@ multiply_infected_snakes <-  filter(seqs_per_snake, n_seqs > 2 & !is.na(snake_nu
 # make a cophylogeny for multiple infection plots 
 # this makes the object but doesn't plot it yet
 full_cophy <- cophylo(L_midpoint, NP_midpoint, assoc = L_NP_assoc_mat)
+
+full_cophy$trees
 
 # this function makes a tanglegram showing links between co-infecting sequences in one or more snake
 make_multiply_infected_tanglegram <- 
@@ -467,14 +548,17 @@ make_multiply_infected_tanglegram(snakes_to_highlight = all_connected_snakes,
 
 
 
+# -----------------------------
+# evaluate pairwise distances
+# -----------------------------
 # read in alignments
 # nt alignments
-L_MSA   <- read.alignment("../make_alignments_and_trees/results/alignments/L_CDS.mafft.fasta", format = "fasta")
-NP_MSA  <- read.alignment("../make_alignments_and_trees/results/alignments/NP_CDS.mafft.fasta", format = "fasta")
+L_MSA   <- read.alignment(paste0(msa_input_dir, "/L_CDS.mafft.fasta"), format = "fasta")
+NP_MSA  <- read.alignment(paste0(msa_input_dir, "/NP_CDS.mafft.fasta"), format = "fasta")
 
 # read in protein alignments
-L_prot_MSA   <- read.alignment("../make_alignments_and_trees/results/alignments/L_prot.mafft.fasta", format = "fasta")
-NP_prot_MSA  <- read.alignment("../make_alignments_and_trees/results/alignments/NP_prot.mafft.fasta", format = "fasta")
+L_prot_MSA   <- read.alignment(paste0(msa_input_dir, "/L_prot.mafft.fasta"), format = "fasta")
+NP_prot_MSA  <- read.alignment(paste0(msa_input_dir, "/NP_prot.mafft.fasta"), format = "fasta")
 
 # convert to pairwise distances using dist.alignment
 
@@ -569,7 +653,7 @@ saveRDS(max_example_L_dist, paste0(rds_output_dir, "max_example_L_dist.RDS"))
 
 # Distances in new species
 
-# accessions of R. califronae sequences
+# accessions of R. californae sequences
 R_californae_L_accessions <- c( "KP071531", "KP071533", "NC_018484", "KP071529" )
 R_californae_S_accessions <- c( "NC_018481", "KP071528", "KP071530", "KP071532" )
 R_californae_accessions   <- c( R_californae_L_accessions, R_californae_S_accessions )
@@ -594,19 +678,32 @@ L_dist_long <-
   pivot_longer(cols = -acc_1, names_to = "acc_2", values_to = "distance") %>%
   filter(!is.na(distance))
 
+# assign species based on accession
+assign_species <- function(acc) {
+  species <- case_when(
+    acc %in% R_californae_accessions ~ "Reptarenavirus_californae", 
+    # all sequences that are not in R. californae are R. giessenae
+    .default                         = "Reptarenavirus_giessenae" )
+  species
+}
+
 # assign accessions to new species
 NP_dist_long <- mutate(
   NP_dist_long,
-  acc_1_species = if_else(acc_1 %in% R_californae_accessions, "Reptarenavirus_californae", "Reptarenavirus_giessenae" ),
-  acc_2_species = if_else(acc_2 %in% R_californae_accessions, "Reptarenavirus_californae", "Reptarenavirus_giessenae" ),
+  acc_1_species = assign_species(acc_1),
+  acc_2_species = assign_species(acc_2),
+  # acc_1_species = if_else(acc_1 %in% R_californae_accessions, "Reptarenavirus_californae", "Reptarenavirus_giessenae" ),
+  # acc_2_species = if_else(acc_2 %in% R_californae_accessions, "Reptarenavirus_californae", "Reptarenavirus_giessenae" ),
   same_species = acc_1_species == acc_2_species,
   same_species_label = if_else(same_species, "Same species", "Different species")
 )
 
 L_dist_long <- mutate(
   L_dist_long,
-  acc_1_species = if_else(acc_1 %in% R_californae_accessions, "Reptarenavirus_californae", "Reptarenavirus_giessenae" ),
-  acc_2_species = if_else(acc_2 %in% R_californae_accessions, "Reptarenavirus_californae", "Reptarenavirus_giessenae" ),
+  acc_1_species = assign_species(acc_1),
+  acc_2_species = assign_species(acc_2),
+  # acc_1_species = if_else(acc_1 %in% R_californae_accessions, "Reptarenavirus_californae", "Reptarenavirus_giessenae" ),
+  # acc_2_species = if_else(acc_2 %in% R_californae_accessions, "Reptarenavirus_californae", "Reptarenavirus_giessenae" ),
   same_species = acc_1_species == acc_2_species,
   same_species_label = if_else(same_species, "Same species", "Different species")
 )
@@ -664,13 +761,16 @@ ggsave(dist_p, file=paste0(figure_output_dir, "pairwise_distance_figure.png"),
 # create a supplemental table listing the proposed new species 
 # assignment for all available reptarenavirus sequences
 
+
 new_species_assignments <- tibble(accession = metadata$accession)
-new_species_assignments <- new_species_assignments %>% mutate(
-  proposed_species = case_when(
-    accession %in% R_californae_accessions ~ "Reptarenavirus californae",
-    .default = "Reptarenavirus giessenae"
-  )
-)
+# assign species to each accession and get rid of underscores in species names
+new_species_assignments <- new_species_assignments %>% 
+  mutate ( proposed_species = str_replace(assign_species(accession), "_", " ")) %>%
+  arrange (proposed_species)
+
+# colnames(new_species_assignments) <- c("GenBank accession", "Proposed species assignment")
+
+saveRDS(new_species_assignments, file = paste0(rds_output_dir, "proposed_species_assignments.RDS"))
 
 # write out the table
 write.table(arrange(new_species_assignments, proposed_species) , 
@@ -678,3 +778,21 @@ write.table(arrange(new_species_assignments, proposed_species) ,
             quote=F,
             sep="\t",
             row.names = F)
+
+
+# ------------------------------------------------------------------------------------
+# how many sequences are there collapsed at the 80% pairwise identity cutoff
+# this corresponds to ~existing classification criteria
+# ------------------------------------------------------------------------------------
+
+NP_CDS_collapsed_80   <- read.fasta(paste0(cds_input_dir, "NP_CDS.cdhit_0.8.fasta"))
+L_CDS_collapsed_80    <- read.fasta(paste0(cds_input_dir, "L_CDS.cdhit_0.8.fasta"))
+
+# how many?
+NP_CDS_collapsed_80_N <- length(NP_CDS_collapsed_80)
+L_CDS_collapsed_80_N  <- length(L_CDS_collapsed_80)
+
+# output RDS
+saveRDS(NP_CDS_collapsed_80_N, paste0(rds_output_dir, "num_NP_CDS_collapsed_80.RDS"))
+saveRDS(L_CDS_collapsed_80_N,  paste0(rds_output_dir, "num_L_CDS_collapsed_80.RDS"))
+

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Build a docker image needed to reproduce this paper
+# 
+# MDS 10/2026
+
+
+echo "must login to GHCR before running these commands; see README.md"
+
+# build image
+docker buildx build --platform linux/amd64 -t ghcr.io/stenglein-lab/reptarenavirus_taxonomy:1.0 .
+
+# push image
+docker push ghcr.io/stenglein-lab/reptarenavirus_taxonomy:1.0
+
