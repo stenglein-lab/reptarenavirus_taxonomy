@@ -64,7 +64,7 @@ if (interactive()) {
 }
 ```
 
-# Pervasive coinfection, reassortment, and recombination of reptarenaviruses inspire a new *Reptarenavirus* taxonomy
+# Pervasive coinfection, reassortment, and recombination inspire a new *Reptarenavirus* taxonomy
 
 <br>
 
@@ -93,6 +93,12 @@ Mark D. Stenglein^1^*, Michael J. Buchmeier^2^, Jean-Paul Gonzalez^3^, Jussi Hep
 ## Abstract
 
 Reptarenaviruses (family *Arenaviridae*: genus *Reptarenavirus*) infect alethinophidian snakes. Some infected snakes develop boid inclusion body disease, a progressive neurologic condition, but many infections are subclinical and persistent. Reptarenaviruses have bisegmented ambisense RNA virus genomes. Reptarenavirus coinfection is common, and often consists of complex mixtures of multiple S and L genome segments in individual snakes. Coinfection provides an opportunity for genome segments to reassort and recombine and both phenomena have been commonly detected. This widespread coinfection, reassortment, and recombination complicate taxonomic classification, and 85% of reptarenavirus sequences are not assigned to a reptarenavirus species under current criteria. We outline a substantially revised reptarenavirus classification consisting of only two species, corresponding to groups of reassorting viruses that share ≥60% pairwise amino-acid identity across large protein (L) and nucleoprotein (NP) sequences. This reassortment-based grouping is analogous to the classical biological species concept based on reproductive isolation and follows the taxonomic example of other groups of frequently reassorting viruses, including influenza viruses and rotaviruses. This scheme enables classification of all known reptarenaviruses while accommodating the biological and genotypic complexity of the group.
+
+## Importance 
+
+[*Should be written as a "nontechnical explanation" of the significance of the paper*]
+
+The reptarenaviruses are a genus of snake-infecting viruses that can cause severe neurological disease. The genome of these viruses are spread across two RNA molecules, which can be shuffled in coinfected snakes to produce new combinations of viral genes. Coinfection and gene shuffling are common features of reptarenavirus infection, and consequently snakes are infected by viruses with complex gene mixtures. This genetic complexity has prevented most reptarenaviruses from being assigned to a species, since assignment criteria assume simple viral genetics. The failure to taxonomically categorize reptarenaviruses impedes research that is dependent on species metadata. This paper proposes to assign all known reptarenaviruses to one of two species. This simplified framework solves current taxonomic challenges and adheres to the classic biological species definition.
 
 {{< pagebreak >}}
 
@@ -232,7 +238,7 @@ Pairwise identities of (A) L protein and (B) nucleoprotein (NP) sequences within
 
 Taxonomists are famously categorized as "lumpers" or "splitters": those that wish to lump more taxa into larger groups vs. those that wish to split taxa into ever finer groups [@Endersby2009]. Here we are proposing substantial lumping, but this is driven by necessity. Current reptarenavirus taxonomy is rooted in assumptions that do not apply. When classification criteria were initially devised, the extent of reptarenavirus coinfection and reassortment was not yet evident. As a result, most reptarenavirus sequences could not be unambiguously assigned to species. The proposed reclassification solves this issue and should be able to accommodate future expansions in known reptarenavirus diversity. 
 
-It is possible, of course, that recovery of additional reptarenavirus sequences could challenge the basis for this reclassification. For instance, additional sampling could reveal viruses with CASV-like S segments and UGV1-like L segments (**[Figure @fig-new-species]**). In that case, reptarenavirus classification would need to be further revised. 
+It is possible, of course, that recovery of additional reptarenavirus sequences could challenge the basis for this reclassification. For instance, additional sampling could reveal viruses with CASV-like S segments and UGV1-like L segments (**[Figure @fig-new-species]**). In that case, reptarenavirus classification would need to be further revised. The new taxonomic framework should be able to accomodate divergent reptarenavirus-like sequences from Amazon coral snakes (*Micrurus spixii*, Wagler, 1824) [@Aird_2017; @Ji_2024; @Onishi_2026]. However it is not clear whether these coral snake-derived sequences are coding-complete, which is a requirement for establishment of a new species [@Adriaenssens2023].
 
 This new scheme is based on the successful precedents of influenza viruses, rotaviruses, and bluetongue viruses, all of which reassort and contain substantial genetic diversity within single species. The 1.48 million influenza A virus sequences in the NCBI nucleotide database all belong to the species *Alphainfluenzavirus influenzae*. This large-scale lumping does not impede research or clinical practice. For instance, the single-species designation does not interfere with seasonal updates of influenza A virus vaccine composition. This may be because taxonomy is useful only insofar as it improves understanding of underlying biology, leads to practical application, or serves as meaningful metadata. 
 
