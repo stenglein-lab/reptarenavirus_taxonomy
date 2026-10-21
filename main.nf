@@ -15,25 +15,25 @@ workflow {
 
     // create little channels with input files
     genbank_input = Channel.of(
-    [ file("input/all_reptarenavirus_L_seqs_2025_10_31.gb"), "L" ],
-    [ file("input/all_reptarenavirus_S_seqs_2025_10_31.gb"), "S" ] )
+    [ file("${projectDir}/input/all_reptarenavirus_L_seqs_2025_10_31.gb"), "L" ],
+    [ file("${projectDir}/input/all_reptarenavirus_S_seqs_2025_10_31.gb"), "S" ] )
     
     // some Metadata about snakes in Hepojoki et al 2015
-    hepojoki_metadata = Channel.fromPath("input/Hepojoki_2015_table_1.xlsx", checkIfExists: true)
+    hepojoki_metadata = Channel.fromPath("${projectDir}/input/Hepojoki_2015_table_1.xlsx", checkIfExists: true)
 
     // The ICTV MSL
-    ictv_msl = Channel.fromPath("input/ICTV_Master_Species_List_2025_MSL41.v1.xlsx", checkIfExists: true)
+    ictv_msl = Channel.fromPath("${projectDir}/input/ICTV_Master_Species_List_2025_MSL41.v1.xlsx", checkIfExists: true)
      
     // run a workflow to collect and wrangle metadata
     process_metadata(genbank_input)
 
     // create multiple sequence alignments and trees
-    align_and_tree_input_ch = Channel.fromPath("input/*_{CDS,prot}.fasta", checkIfExists: true )
+    align_and_tree_input_ch = Channel.fromPath("${projectDir}/input/*_{CDS,prot}.fasta", checkIfExists: true )
 
     align_and_tree(align_and_tree_input_ch)
 
     // collapse NP and L sequences at 80% identity threshold using cd-hit
-    cds_input = Channel.fromPath("input/*_CDS.fasta", checkIfExists: true)
+    cds_input = Channel.fromPath("${projectDir}/input/*_CDS.fasta", checkIfExists: true)
     cd_hit_cutoff = Channel.value("0.8")
     collapse_cds(cds_input, cd_hit_cutoff)
 
