@@ -288,7 +288,7 @@ Most reptarenavirus *L* sequences are unclassified under the current classificat
 
 ::: {#suppfig-classified-unclassified-S-sup}
 
-![](./figures/supplemental/Supplemental_figure_X_S_classified_unclassified_tree.png)
+![](./figures/supplemental/Supplemental_figure_X_NP_classified_unclassified_tree.png)
 
 Most reptarenavirus *NP* sequences are unclassified under the current classification scheme. Midpoint rooted maximum-likelihood trees from nucleotide alignments of reptarenavirus *nucleoprotein* (*NP*) coding sequences. Red colored circles denote sequences associated with established reptarenavirus sequences.
 ::: 
